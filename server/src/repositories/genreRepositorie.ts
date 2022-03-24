@@ -1,8 +1,8 @@
 import db from '../database/models'
 
-export const createMovie = async (data) => {
+export const createGenre = async (data) => {
 
-    const movie = await db.genre.create(data)
+    const genre = await db.genre.create(data)
     
-    return movie;
+    return genre;
 };

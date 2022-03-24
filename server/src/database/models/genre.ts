@@ -40,7 +40,7 @@ export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     {
       freezeTableName: true,
       sequelize,
-      modelName: 'admin',
+      modelName: 'genre',
     }
   )
 

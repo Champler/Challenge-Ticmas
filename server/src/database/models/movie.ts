@@ -46,7 +46,7 @@ export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
         allowNull: false,
       },
       year: {
-        type: dataTypes.NUMBER,
+        type: dataTypes.STRING,
         allowNull: false,
       },
     },
