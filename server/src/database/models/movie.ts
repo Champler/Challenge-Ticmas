@@ -4,6 +4,7 @@ interface MovieAttributes {
   id: string
   title: string
   director: string
+  year: number
 }
 
 export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
@@ -11,6 +12,7 @@ export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     id: string
     title: string
     director: string
+    year: number
 
     static associate(models: any) {
         Movie.belongsToMany(models.actor_movie, {
@@ -41,6 +43,10 @@ export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
       },
       director: {
         type: dataTypes.STRING,
+        allowNull: false,
+      },
+      year: {
+        type: dataTypes.NUMBER,
         allowNull: false,
       },
     },

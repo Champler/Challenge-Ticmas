@@ -19,6 +19,10 @@ export async function up({ context: queryInterface }) {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    year: {
+      type: DataTypes.NUMBER,
+      allowNull: false,
+    },
     ...TIMESTAMPS,
   })
 

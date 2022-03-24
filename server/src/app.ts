@@ -1,12 +1,23 @@
-// lib/app.ts
-import express = require('express');
-// Create a new express application instance
+import express  from 'express'
+import type { ErrorRequestHandler } from "express";
+import movieRouter from './routes/movieRouter';
 const app: express.Application = express();
 
+app.use(express.json())
+app.use(express.urlencoded({ extended: false}))
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
+app.use('/movie', movieRouter)
+
+const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
+  res.status(400).json({
+    error: {
+      status: error.status,
+      message: error.message || 'Internal Server Error.',
+    },
+  })
+};
+app.use(errorHandler);
+
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('Movies app listening on port 3000!');
 });
