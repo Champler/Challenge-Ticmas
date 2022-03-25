@@ -16,7 +16,6 @@ export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
         through: 'actor_movie',
         foreignKey: 'actor_id',
         otherKey: 'movie_id',
-        timestamps: false,
       })
     }
   }
@@ -37,7 +36,7 @@ export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     {
       freezeTableName: true,
       sequelize,
-      modelName: 'admin',
+      modelName: 'actor',
     }
   )
 

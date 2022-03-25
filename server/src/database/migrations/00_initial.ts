@@ -80,6 +80,7 @@ export async function up({ context: queryInterface }) {
         key: 'id',
       },
     },
+    ...TIMESTAMPS,
   })
 }
 

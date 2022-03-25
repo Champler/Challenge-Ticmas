@@ -11,26 +11,6 @@ export const createMovie = async (data) => {
     }
 };
 
-export const checkMovieByName = async (data) => {
-    try {
-        const movieByName = await db.movie.findOne({where: {title: data}})
-
-        return movieByName
-    } catch (error) {
-        throw new Error(error)
-    }
-}
-
-export const checkMovieById = async (data) => {
-    try {
-        const movieByName = await db.movie.findById(data)
-
-        return movieByName
-    } catch (error) {
-        throw new Error(error)
-    }
-}
-
 export const getAllMovies = async () => {
     try {
         const movieByName = await db.movie.findAll({
@@ -47,6 +27,17 @@ export const getAllMovies = async () => {
         throw new Error(error)
     }
 }
+
+export const checkMovieByName = async (data) => {
+    try {
+        const movieByName = await db.movie.findOne({where: {title: data}})
+
+        return movieByName
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
 export const getMoviesWhere = async (data) => {
     try {
         const movieByName = await db.movie.findAll({

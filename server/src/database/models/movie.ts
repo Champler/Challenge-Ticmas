@@ -20,7 +20,6 @@ export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
           through: 'actor_movie',
           foreignKey: 'movie_id',
           otherKey: 'actor_id',
-          timestamps: false,
         })
         Movie.hasMany(models.genre, {
           as: 'movie_Genre',
