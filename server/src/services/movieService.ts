@@ -31,7 +31,7 @@ export const postMovie = async () => {
         await postGenre(movie.genero, movie= newMovie.dataValues.id)        
       }
     } catch (error) {
-      console.log(error);
+      throw new Error(error)
     }
   });
 
@@ -45,15 +45,17 @@ export const postMovie = async () => {
   return 'mmovies created succesfully';
 };
 
-export const getMovies = async () => {  
-  const allMovies = await getAllMovies()
+export const getMovies = async (data) => {  
+  const page = (data.page - 1) * 20
+  const allMovies = await getMoviesWhere({page,search: data.search })
   
-  return allMovies;
+  allMovies.forEach(movie =>{
+    movie.actors.forEach(actor => {
+
+      actor.dataValues.actor_movie.dataValues = undefined
+    })
+  })
+  return { movies: allMovies, page: data.page };
 };
 
-export const getSearchedMovies = async (data) => {  
-  const searchedMovies = await getMoviesWhere(data)
-  
-  return searchedMovies;
-};
 

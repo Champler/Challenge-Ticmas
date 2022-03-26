@@ -1,4 +1,4 @@
-import { postMovie, getMovies, getSearchedMovies } from '../services/movieService'
+import { postMovie, getMovies } from '../services/movieService'
 
 export const create = async (req, res, next) => {
 
@@ -17,22 +17,7 @@ export const create = async (req, res, next) => {
 export const getMoviesController = async (req, res, next) => {
 
     try {
-      const allMovies = await getMovies();
-      
-      res.status(201).json({
-        status: 201,
-        msg: `movie created`,
-        allMovies,
-      })
-    } catch (error) {
-      next(error);
-    }
-};
-
-export const searchMoviesController = async (req, res, next) => {
-
-    try {
-      const allMovies = await getSearchedMovies(req.body.search);
+      const allMovies = await getMovies({ page: req.query.page, search: req.query.search });
       
       res.status(201).json({
         status: 201,

@@ -15,7 +15,7 @@ export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
     year: number
 
     static associate(models: any) {
-        Movie.belongsToMany(models.actor_movie, {
+        Movie.belongsToMany(models.actor, {
           as: 'actors',
           through: 'actor_movie',
           foreignKey: 'movie_id',

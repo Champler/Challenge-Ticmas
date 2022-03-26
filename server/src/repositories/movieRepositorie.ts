@@ -18,6 +18,11 @@ export const getAllMovies = async () => {
                 {
                   model: db.genre,
                   as: 'movie_Genre',
+                  attributes: ['genre']
+                },
+                {
+                  association: 'actors',
+                  attributes: ['full_name']
                 },
               ],
         })
@@ -43,15 +48,22 @@ export const getMoviesWhere = async (data) => {
         const movieByName = await db.movie.findAll({
             include: [
                 {
-                  model: db.genre,
-                  as: 'movie_Genre',
-                },
+                    model: db.genre,
+                    as: 'movie_Genre',
+                    attributes: ['genre']
+                  },
+                  {
+                    association: 'actors',
+                    attributes: ['full_name']
+                  },
               ],
+              limit: 20,
+              offset: data.page,
               where: {
                     [Op.or]: [
-                        {title: {[Op.substring]:`%${data}%`}},
-                        {director: {[Op.substring]:`%${data}%`}},
-                        {year: {[Op.substring]:`%${data}%`}},
+                        {title: {[Op.substring]:`%${data.search}%`}},
+                        {director: {[Op.substring]:`%${data.search}%`}},
+                        {year: {[Op.substring]:`%${data.search}%`}},
                     ]
               }
         })

@@ -5,8 +5,9 @@ export const postActors = async (actors, movie_id) => {
   actors.forEach(async actor => {
     
       const exists = await findActor(actor)
-
-      if (!exists) {
+     console.log(exists);
+    
+      if (exists === null) {
         const actorSorted: {full_name: string; } = {
           full_name: actor,
         };
