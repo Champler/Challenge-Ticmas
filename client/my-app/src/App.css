@@ -25,7 +25,14 @@
   color: "#EEEEEE"
 
 }
-
+.App-button {
+    background-color: "#1C658C";
+    color: "#EEEEEE";
+    padding: "10px";
+    font-size: 15;
+    border: "1px solid";
+    border-radius: "5px";
+}
 .App-link {
   color: #61dafb;
 }

@@ -41,7 +41,7 @@ export const FileForm = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#EEEEEE", height: "1024px", margin: 250 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: "center", minHeight: '100vh'}}>
       <form action="POST">
         <div
           style={{
