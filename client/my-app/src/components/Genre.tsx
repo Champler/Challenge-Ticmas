@@ -10,7 +10,7 @@ export default function Genre( { movieGenre } : GenreArrayProps) {
 
     return (
         <div>
-            {movieGenre[0].genre}
+            <p style= {{fontSize: 12}}>{movieGenre[0].genre}</p>
         
       </div>
   )

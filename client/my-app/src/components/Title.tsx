@@ -6,6 +6,6 @@ interface TitleProps {
 
 export default function Title({ movieTitle }: TitleProps) {
   return (
-    <h1>{ movieTitle }</h1>
+    <h1 style={{fontSize: 18, }}>{ movieTitle }</h1>
   )
 }

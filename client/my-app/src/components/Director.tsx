@@ -6,6 +6,6 @@ interface DirectorProps {
 
 export default function Director({ movieDirector }: DirectorProps) {
   return (
-    <h2>{ movieDirector }</h2>
+    <h2 style={{fontSize: 16, }}>Directed by: { movieDirector }</h2>
   )
 }

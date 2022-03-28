@@ -6,6 +6,6 @@ interface YearProps {
 
 export default function Year({ movieYear }: YearProps) {
   return (
-    <h3>{ movieYear }</h3>
+    <h3>({ movieYear })</h3>
   )
 }

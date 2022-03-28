@@ -4,6 +4,8 @@ import Director from "./components/Director";
 import Genre from "./components/Genre";
 import Title from "./components/Title";
 import Year from "./components/Year";
+import {NavLink} from 'react-router-dom'
+import logo from '../src/utils/home_black_24dp.svg'
 
 interface MoviesParsed {
   allMovies: Array<allMovies>;
@@ -33,8 +35,11 @@ export default function Movie() {
   
   
   return (
-    <div>
-      <ul>
+    <div style={{ backgroundColor: "#EEEEEE", height: "100%"}}>
+      <NavLink aria-current="page" to="/">
+      <img src={logo} alt='home' style= {{width: 50, height: 50}}/>
+      </NavLink>
+      <ul style={{ display: "flex", flexWrap: 'wrap', flexDirection: "row", gap: '15', justifyContent: "center", alignItems: "center"}}>
         {!movieParsed
           ? "Cargando"
           : movieParsed.allMovies.movies.map(
@@ -48,16 +53,17 @@ export default function Movie() {
                 },
                 index: number
               ) => (
-                <div>
+                <div style= {{margin: 20, border: '1px solid', borderRadius: 10, padding: 20, width:350, height: 350}}>
                   <Title movieTitle={movie.title} />
-                  <Director movieDirector={movie.director} />
                   <Year movieYear={movie.year} />
+                  <Director movieDirector={movie.director} />
                   <Actor movieActor={movie.actors} />
                   <Genre movieGenre={movie.movie_Genre} />
                 </div>
               )
             )}
       </ul>
+      
     </div>
   );
 }
