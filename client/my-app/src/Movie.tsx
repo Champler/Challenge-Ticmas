@@ -14,11 +14,9 @@ interface MovieInt {
   movie_Genre: [];
   actors: [];
 }
-interface AllMovies {
-  movies: Array<MovieInt>;
-}
+
 interface MoviesParsed {
-  allMovies: Array<Array<MovieInt>>;
+  movies: Array<MovieInt>;
 }
 
 
@@ -33,7 +31,7 @@ export default function Movie() {
   const fetchApi = async () => {
     const response = await fetch(url);
     const responseJSON = await response.json();
-    setMovies(responseJSON);
+    setMovies(responseJSON.allMovies);
   };
 
   useEffect(() => {
@@ -131,7 +129,7 @@ export default function Movie() {
       >
         {!movieParsed
           ? "Cargando"
-          : movieParsed.allMovies.movies.map(
+          : movieParsed.movies.map(
               (
                 movie: {
                   title: string;
