@@ -18,7 +18,7 @@ interface AllMovies {
   movies: Array<MovieInt>;
 }
 interface MoviesParsed {
-  allMovies: [][];
+  allMovies: Array<Array<MovieInt>>;
 }
 
 

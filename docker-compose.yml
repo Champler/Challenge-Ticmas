@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  welly_db:
+  movies_db:
     container_name: movies_db
     image: "postgres:13"
     ports: 
