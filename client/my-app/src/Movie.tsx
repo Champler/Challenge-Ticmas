@@ -7,13 +7,20 @@ import Year from "./components/Year";
 import { NavLink } from "react-router-dom";
 import logo from "../src/utils/home_black_24dp.svg";
 
+interface MovieInt {
+  title: string;
+  year: string;
+  director: string;
+  movie_Genre: [];
+  actors: [];
+}
+interface AllMovies {
+  movies: Array<MovieInt>;
+}
 interface MoviesParsed {
-  allMovies: Array<allMovies>;
+  allMovies: [][];
 }
 
-interface allMovies {
-  movies: [];
-}
 
 export default function Movie() {
   const [search, setSearch] = useState("a");
@@ -53,7 +60,16 @@ export default function Movie() {
         style={{ padding: 10, border: "1px solid", borderRadius: 10 }}
       />
 
-      <div style={{ display: "flex", flexDirection: "row", gap: 10, marginTop: 20, justifyContent: "center", alignItems: "center"}}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: 10,
+          marginTop: 20,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <button
           onClick={(e) =>
             pageNumber > 1 ? setPageNumber(pageNumber - 1) : setPageNumber(1)
@@ -65,36 +81,44 @@ export default function Movie() {
             fontSize: 12,
             border: "1px solid",
             borderRadius: "5px",
-            height: 40
+            height: 40,
           }}
         >
           {" "}
           Volver{" "}
         </button>
-        <p style={{fontSize: 16, fontWeight: "bold"}}>{pageNumber}</p>
-        <button onClick={(e) => setPageNumber(pageNumber + 1)} style={{
+        <p style={{ fontSize: 16, fontWeight: "bold" }}>{pageNumber}</p>
+        <button
+          onClick={(e) => setPageNumber(pageNumber + 1)}
+          style={{
             backgroundColor: "#1C658C",
             color: "#EEEEEE",
             padding: "3px",
             fontSize: 12,
             border: "1px solid",
             borderRadius: "5px",
-            height: 40
-          }}>
+            height: 40,
+          }}
+        >
           {" "}
           Siguiente{" "}
         </button>
       </div>
 
-      <button onClick={(e) => setPageNumber(1)} style={{
-            backgroundColor: "#1C658C",
-            color: "#EEEEEE",
-            padding: "3px",
-            fontSize: 12,
-            border: "1px solid",
-            borderRadius: "5px",
-            height: 40
-          }}>Volver al inicio</button>
+      <button
+        onClick={(e) => setPageNumber(1)}
+        style={{
+          backgroundColor: "#1C658C",
+          color: "#EEEEEE",
+          padding: "3px",
+          fontSize: 12,
+          border: "1px solid",
+          borderRadius: "5px",
+          height: 40,
+        }}
+      >
+        Volver al inicio
+      </button>
       <ul
         style={{
           display: "flex",
@@ -105,7 +129,6 @@ export default function Movie() {
           alignItems: "center",
         }}
       >
-
         {!movieParsed
           ? "Cargando"
           : movieParsed.allMovies.movies.map(

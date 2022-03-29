@@ -31,7 +31,8 @@ export const postMovie = async () => {
         await postGenre(movie.genero, movie= newMovie.dataValues.id)        
       }
     } catch (error) {
-      throw new Error(error)
+      console.log(error);
+      
     }
   });
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import {NavLink} from 'react-router-dom'
+import {NavLink, Navigate} from 'react-router-dom'
+
 import logo from '../utils/live_tv_black_24dp.svg'
 
 export const FileForm = () => {
@@ -21,23 +22,15 @@ export const FileForm = () => {
     e.target.style.background = "#398AB9";
     e.target.style.color = "#D8D2CB";
   }
-  /* const checkFile = () =>{ 
-    if (file.name.split(".")[1] !== "csv") {
-        return<p>Ingrese otro archivo</p>
-      notValidated = "Ingrese otro archivo";
-      console.log("hola");
-    }
-  } */
 
   const handleUpload = async (e) => {
     const formData = new FormData();
     formData.append("csv", file);
-    fetch(url, { method: "POST" });
     await axios({
-      url,
+      baseURL: url,
       method: "POST",
       data: formData,
-    });
+    })
   };
 
   return (
@@ -91,6 +84,7 @@ export const FileForm = () => {
           Upload
         </button>
       </form>
+      <h3>Peliculas:</h3>
       <NavLink aria-current="page" to="/movie/getMovies">
       <img src={logo} alt='home' style= {{width: 50, height: 50}}/>
       </NavLink>
