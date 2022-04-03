@@ -6,6 +6,7 @@ import Title from "./components/Title";
 import Year from "./components/Year";
 import { NavLink } from "react-router-dom";
 import logo from "../src/utils/home_black_24dp.svg";
+import { Button, Card, FloatingLabel, Form } from "react-bootstrap";
 
 interface MovieInt {
   title: string;
@@ -19,14 +20,11 @@ interface MoviesParsed {
   movies: Array<MovieInt>;
 }
 
-
 export default function Movie() {
   const [search, setSearch] = useState("a");
   const [pageNumber, setPageNumber] = useState(1);
-
-  const url = `http://localhost:3001/movie/getMovies?page=${pageNumber}&search=${search}`;
-
   const [movieParsed, setMovies] = useState<MoviesParsed>();
+  const url = `http://localhost:3001/movie/getMovies?page=${pageNumber}&search=${search}`;
 
   const fetchApi = async () => {
     const response = await fetch(url);
@@ -36,6 +34,7 @@ export default function Movie() {
 
   useEffect(() => {
     fetchApi();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber, search]);
 
   return (
@@ -49,74 +48,53 @@ export default function Movie() {
       }}
     >
       <NavLink aria-current="page" to="/">
-        <img src={logo} alt="home" style={{ width: 50, height: 50 }} />
+        <img src={logo} alt="home" style={{ width: 50, height: 50, marginBottom: 15 }} />
       </NavLink>
-      <input
-        type="text"
-        placeholder="Type your favorite movie"
-        onChange={(e) => e.target.value !== "" && setSearch(e.target.value)}
-        style={{ padding: 10, border: "1px solid", borderRadius: 10 }}
-      />
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: 10,
-          marginTop: 20,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+      <FloatingLabel
+        controlId="floatingInput"
+        label="Your favorite movie"
+        className="mb-3"
       >
-        <button
+        <Form.Control
+          type="text"
+          onChange={(e) =>
+            e.target.value !== "" &&
+            setSearch(e.target.value.toLocaleLowerCase())
+          }
+          placeholder="Your favorite movie"
+        />
+      </FloatingLabel>
+      <p className="lead"><strong>{pageNumber}</strong></p>
+      <div className="btn-group">
+        <Button
+          type="submit"
           onClick={(e) =>
             pageNumber > 1 ? setPageNumber(pageNumber - 1) : setPageNumber(1)
           }
-          style={{
-            backgroundColor: "#1C658C",
-            color: "#EEEEEE",
-            padding: "3px",
-            fontSize: 12,
-            border: "1px solid",
-            borderRadius: "5px",
-            height: 40,
-          }}
+          variant="primary"
+          size="lg"
         >
-          {" "}
-          Volver{" "}
-        </button>
-        <p style={{ fontSize: 16, fontWeight: "bold" }}>{pageNumber}</p>
-        <button
+          {"<"}
+        </Button>
+        <Button
+          type="submit"
+          onClick={(e) => setPageNumber(1)}
+          variant="primary"
+          size="sm"
+        >
+          Back to page 1
+        </Button>
+
+        <Button
+          type="submit"
           onClick={(e) => setPageNumber(pageNumber + 1)}
-          style={{
-            backgroundColor: "#1C658C",
-            color: "#EEEEEE",
-            padding: "3px",
-            fontSize: 12,
-            border: "1px solid",
-            borderRadius: "5px",
-            height: 40,
-          }}
+          variant="primary"
+          size="lg"
         >
-          {" "}
-          Siguiente{" "}
-        </button>
+          {">"}
+        </Button>
       </div>
 
-      <button
-        onClick={(e) => setPageNumber(1)}
-        style={{
-          backgroundColor: "#1C658C",
-          color: "#EEEEEE",
-          padding: "3px",
-          fontSize: 12,
-          border: "1px solid",
-          borderRadius: "5px",
-          height: 40,
-        }}
-      >
-        Volver al inicio
-      </button>
       <ul
         style={{
           display: "flex",
@@ -140,23 +118,28 @@ export default function Movie() {
                 },
                 index: number
               ) => (
-                <div
-                  style={{
-                    margin: 20,
-                    border: "1px solid",
-                    borderRadius: 10,
-                    padding: 20,
-                    width: 350,
-                    height: 380,
-                  }}
-                >
-                  <Title movieTitle={movie.title} />
-                  <Year movieYear={movie.year} />
-                  <Director movieDirector={movie.director} />
-                  {/* @ts-ignore */}
-                  <Actor movieActor={movie.actors} />
-                  {/* @ts-ignore */}
-                  <Genre movieGenre={movie.movie_Genre} />
+                <div>
+                  <Card
+                    style={{ width: "22rem", height: "22rem", margin: "15px" }}
+                  >
+                    <Card.Body>
+                      <Card.Title>
+                        <Title movieTitle={movie.title} />
+                      </Card.Title>
+                      <Card.Subtitle className="mb-2 text-muted">
+                        <Year movieYear={movie.year} />
+                      </Card.Subtitle>
+                      <Card.Subtitle className="mb-2 text-muted">
+                        <Director movieDirector={movie.director} />
+                      </Card.Subtitle>
+                      <Card.Subtitle className="mb-2 text-muted">
+                        <Genre movieGenre={movie.movie_Genre} />
+                      </Card.Subtitle>
+                      <Card.Text>
+                        <Actor movieActor={movie.actors} />
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
                 </div>
               )
             )}

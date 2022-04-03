@@ -1,8 +1,8 @@
-interface ActorArrayProps {
-  movieActor: [ActorProps];
-}
 interface ActorProps {
   full_name: string;
+}
+interface ActorArrayProps {
+  movieActor: Array<ActorProps>;
 }
 
 export default function Actor({ movieActor }: ActorArrayProps) {

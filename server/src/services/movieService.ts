@@ -1,27 +1,24 @@
-import {  checkMovieByName, createMovie, getAllMovies, getMoviesWhere } from "../repositories/movieRepositorie";
+import {  checkMovieByName, createMovie, getMoviesWhere } from "../repositories/movieRepositorie";
 import fs from "fs";
 import path from "path";
-import { moviesRead, parsedMovies } from "./csvToJson";
+import csvToJson from "./csvToJson";
 import { postGenre } from "./genreService";
 import { postActors } from "./actorService";
 
-const pathCsv = path.join(__dirname, "../uploads/currentcsv.csv");
-const pathJson = path.join(__dirname, "../uploads/currentcsv.json");
-
 let newMovie: any;
+const pathCsv = path.join(__dirname, "../uploads/currentcsv.csv");
 
 export const postMovie = async () => {
-  const parseMovies = await parsedMovies(pathCsv)
-  const movies = await moviesRead(pathJson)
+  const movies = await csvToJson(pathCsv); 
   movies.forEach(async (movie) => { 
     const exists = await checkMovieByName(movie.titulo);
     
     try {
       if (!exists) {
-        const movieSorted: { title: string; director: string; year: number } = {
-          title: movie.titulo.toLowerCase(),
-          director: movie.director.toLowerCase(),
-          year: movie.anio.toLowerCase(),
+        const movieSorted: { title: string; director: string; year: string } = {
+          title: movie.titulo,
+          director: movie.director,
+          year: movie.año,
         };
         
         newMovie = await createMovie(movieSorted);
@@ -38,7 +35,7 @@ export const postMovie = async () => {
 
   try {
     fs.unlinkSync(path.join(__dirname, "../uploads/currentcsv.csv"));
-    fs.unlinkSync(path.join(__dirname, "../uploads/currentcsv.json"));
+    /* fs.unlinkSync(path.join(__dirname, "../uploads/currentcsv.json")); */
   } catch (err) {
     console.error(err);
   }

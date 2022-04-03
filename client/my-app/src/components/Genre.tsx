@@ -1,8 +1,8 @@
-interface GenreArrayProps { 
-    movieGenre: [GenreProps]
-}
 interface GenreProps { 
     genre: string
+}
+interface GenreArrayProps { 
+    movieGenre: Array<GenreProps>
 }
 
 
