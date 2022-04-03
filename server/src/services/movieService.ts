@@ -1,7 +1,7 @@
 import {  checkMovieByName, createMovie, getAllMovies, getMoviesWhere } from "../repositories/movieRepositorie";
 import fs from "fs";
 import path from "path";
-import { parsedMovies } from "./csvToJson";
+import { moviesRead, parsedMovies } from "./csvToJson";
 import { postGenre } from "./genreService";
 import { postActors } from "./actorService";
 
@@ -11,17 +11,17 @@ const pathJson = path.join(__dirname, "../uploads/currentcsv.json");
 let newMovie: any;
 
 export const postMovie = async () => {
-  const movies = await parsedMovies(pathCsv, pathJson);
-
-  movies.forEach(async (movie) => {
+  const parseMovies = await parsedMovies(pathCsv)
+  const movies = await moviesRead(pathJson)
+  movies.forEach(async (movie) => { 
     const exists = await checkMovieByName(movie.titulo);
     
     try {
       if (!exists) {
         const movieSorted: { title: string; director: string; year: number } = {
-          title: movie.titulo,
-          director: movie.director,
-          year: movie.año,
+          title: movie.titulo.toLowerCase(),
+          director: movie.director.toLowerCase(),
+          year: movie.anio.toLowerCase(),
         };
         
         newMovie = await createMovie(movieSorted);
@@ -43,7 +43,7 @@ export const postMovie = async () => {
     console.error(err);
   }
 
-  return 'mmovies created succesfully';
+  return 'movies created succesfully';
 };
 
 export const getMovies = async (data) => {  

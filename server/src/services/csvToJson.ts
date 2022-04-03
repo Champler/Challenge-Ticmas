@@ -1,20 +1,51 @@
-import csvToJson from "convert-csv-to-json";
-import { promises as fsPromise } from "fs";
+import { promises as fsPromise, read } from "fs";
+import { parse } from "csv-parse";
+import fs from "fs";
+import path from "path";
 
-export const parsedMovies = async (pathCsv, pathJson) => {
-  try {
-    const fileInputName = pathCsv;
-    const fileOutputName = pathJson;
-    await csvToJson
-      .fieldDelimiter(";")
-      .generateJsonFileFromCsv(fileInputName, fileOutputName);
+interface Movies {
+  titulo: string;
+  genero: string;
+  anio: string;
+  director: string;
+  actores: string;
+}
+interface Result {
+  result: Array<Movies>;
+}
+const pathJson = path.join(__dirname, "../uploads/currentcsv.json");
+const pathCsv = path.join(__dirname, "../uploads/currentcsv.csv");
 
-    const readFile = await fsPromise.readFile(pathJson, "utf-8");
+export const parsedMovies = async (pathCsv: string) => {
+  const readFile = await fsPromise.readFile(pathCsv, "utf-8");
+  const headers = ["titulo", "genero", "anio", "director", "actores"];
+  console.log("1");
 
-    const movies = await JSON.parse(readFile);
+  const parsedMovies = parse(
+    readFile,
+    {
+      delimiter: ";",
+      columns: headers,
+    },
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
 
-    return movies;
-  } catch (e) {
-    console.log(e);
-  }
+      console.log("1");
+
+      fs.writeFileSync(
+        path.join(__dirname, "../uploads/currentcsv.json"),
+        JSON.stringify(result),
+        "utf8"
+      );
+    }
+  );
+  return parsedMovies;
+};
+
+export const moviesRead = async (pathJson) => {
+  console.log("2");
+  const movies = JSON.parse(fs.readFileSync(pathJson, "utf-8"));
+  return movies;
 };
