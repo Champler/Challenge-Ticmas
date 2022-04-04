@@ -12,12 +12,10 @@ interface Movies {
 export default async function csvToJson(path: string): Promise<Array<Movies>> {
   return new Promise((res) => {
     const fileContent = fs.readFileSync(path, "utf-8");
-
     const csv2jsonCallback = function (err, json) {
       if (err) throw err;
       res(json)
     };
-
     const options = {
       delimiter: {
         field: ";",

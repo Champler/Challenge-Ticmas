@@ -2,22 +2,33 @@ import { createActorMovie } from "../repositories/actorMovieRepositorie";
 import { createActor, findActor } from "../repositories/actorRepositorie";
 
 export const postActors = async (actors, movie_id) => {
+  let newActor;
+ 
   actors.forEach(async actor => {
-    
+    //return console.log(actor.split(' ')); //Llega mas de un actor
+       
       const exists = await findActor(actor)
-    
-      if (exists === null) {
-        const actorSorted: {full_name: string; } = {
+
+      if (exists) {
+        await createActorMovie(movie_id, exists.id);
+        console.log('¿nazhe')
+        return exists;
+      } 
+      if (!exists) {
+        const actorSorted: {full_name: string } = {
           full_name: actor,
         };
 
-        const newActor = await createActor(actorSorted);
-        
-        await createActorMovie(movie_id, newActor.id)
-      } else {
-        await createActorMovie(movie_id, exists.dataValues.id)
+        newActor = await createActor(actorSorted);
       }
+      
+      if (!newActor) {
+        return new Error('actor not created');
+      }
+
+      await createActorMovie(movie_id, newActor.id);
+      return newActor;
+    
     })
 
-    return 'Actors created successfully';
 };

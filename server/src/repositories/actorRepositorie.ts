@@ -7,7 +7,7 @@ export const createActor = async (data) => {
 };
 
 export const findActor = async (full_name) => {
-    const actor = await db.actor.findOne({where: { full_name }})
-
+    console.log(full_name);
+    const actor = await db.actor.findOne({where: { full_name: full_name }})
     return actor;
 };

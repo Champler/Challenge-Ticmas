@@ -10,10 +10,13 @@ const pathCsv = path.join(__dirname, "../uploads/currentcsv.csv");
 
 export const postMovie = async () => {
   const movies = await csvToJson(pathCsv); 
+
   movies.forEach(async (movie) => { 
+    try {
+
     const exists = await checkMovieByName(movie.titulo);
     
-    try {
+  
       if (!exists) {
         const movieSorted: { title: string; director: string; year: string } = {
           title: movie.titulo,
@@ -21,7 +24,7 @@ export const postMovie = async () => {
           year: movie.año,
         };
         
-        newMovie = await createMovie(movieSorted);
+        newMovie =  await createMovie(movieSorted);
         const actors = movie.actores.split(',')
         await postActors(actors, newMovie.dataValues.id)
 
@@ -45,7 +48,7 @@ export const postMovie = async () => {
 
 export const getMovies = async (data) => {  
   const page = (data.page - 1) * 20
-  const allMovies = await getMoviesWhere({page,search: data.search })
+  const allMovies = await getMoviesWhere({page,search: data.search.toLowerCase() })
   
   allMovies.forEach(movie =>{
     movie.actors.forEach(actor => {

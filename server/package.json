@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
+    "db:migrate:all": "ts-node ./src/database/scripts/migration/down.ts && ts-node ./src/database/scripts/migration/up.ts && ts-node-dev --respawn --transpile-only ./src/app.ts",
     "db:migrate": "ts-node ./src/database/scripts/migration/up.ts\"",
     "db:migrate:undo": "ts-node ./src/database/scripts/migration/down.ts\"",
     "dev": "ts-node-dev --respawn --transpile-only ./src/app.ts"

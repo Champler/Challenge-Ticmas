@@ -69,11 +69,18 @@ export const FileForm = () => {
           Upload
         </Button>
       </form>
-      <div style={{display:'flex', gap: 20, alignItems: 'center', justifyContent: 'center', marginTop: 20}}>
-      <h3>Go to movies:</h3>
-      <NavLink aria-current="page" to="/movie/getMovies">
-        <img src={logo} alt="home" style={{ width: 50, height: 50 }} />
-      </NavLink>
+      <div
+        style={{
+          display: "flex",
+          gap: 20,
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: 20,
+        }}
+      >
+        <NavLink aria-current="page" to="/movie/getMovies">
+          <h3>Go to movies</h3>
+        </NavLink>
       </div>
     </div>
   );

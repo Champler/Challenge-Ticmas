@@ -61,9 +61,9 @@ export const getMoviesWhere = async (data) => {
               offset: data.page,
               where: {
                     [Op.or]: [
-                        {title: {[Op.substring]:`%${data.search}%`}},
-                        {director: {[Op.substring]:`%${data.search}%`}},
-                        {year: {[Op.substring]:`%${data.search}%`}},
+                        {title: {[Op.iLike]:`%${data.search}%`}},
+                        {director: {[Op.iLike]:`%${data.search}%`}},
+                        {year: {[Op.iLike]:`%${data.search}%`}},
                     ]
               }
         })
